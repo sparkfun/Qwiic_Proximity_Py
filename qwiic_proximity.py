@@ -156,16 +156,15 @@ class QwiicProximity(object):
 
 	def __init__(self, address=None):
 
-		# Call the super class. The super calss will use default values if not 
-		# proviced
+
 		self.address = address if address != None else self.available_addresses[0]
 
 		# load the I2C driver
 
 		self._i2c = qwiic_i2c.getI2CDriver()
 		if self._i2c == None:
-				print("Unable to load I2C driver for this platform.")
-				return
+			print("Unable to load I2C driver for this platform.")
+			return
 
 	def isConnected(self):
 		return qwiic_i2c.isDeviceConnected(self.address)
