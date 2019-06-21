@@ -17,5 +17,5 @@ To build a package for use with pip:
 A package file is built and placed in a subdirectory called dist. This package file can be installed using pip.
 ```
   cd dist
-  pip install sparkfun_qwiic_i2c-0.8.6.tar.gz
+  pip install sparkfun_qwiic_proximity-0.0.7.tar.gz
 ```
