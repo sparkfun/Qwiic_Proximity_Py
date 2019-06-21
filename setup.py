@@ -23,7 +23,13 @@
 #------------------------------------------------------------------------
 
 from setuptools import setup, find_packages  # Always prefer setuptools over distutils
+from os import path
 
+here = path.abspath(path.dirname(__file__))
+
+# get the log description
+with open(path.join(here, "DESCRIPTION.rst"), encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
 
@@ -35,17 +41,17 @@ setup(
     version='0.0.7',
 
     description='SparkFun Electronics qwiic Proxmity Sensor package',
-    long_description='Python support for the SparkFun Electronics qwiic Proxmity board',
+    long_description=long_description,
 
     # The project's main homepage.
-    url='http://www.sparkfun.com/qwiic',
+    url='https://www.sparkfun.com/products/15177',
 
     # Author details
     author='SparkFun Electronics',
     author_email='info@sparkfun.com',
 
     install_requires=['sparkfun_qwiic_i2c'],
-    
+
     # Choose your license
     license='GPLv2',
 
