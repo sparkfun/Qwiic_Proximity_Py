@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #-----------------------------------------------------------------------------
 # qwiic_proximity_ex3.py
 #
