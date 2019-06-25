@@ -21,7 +21,6 @@
 import qwiic_i2c
 
 #
-#
 # The name of this device 
 _DEFAULT_NAME = "Qwiic Proximity Sensor"
 
@@ -52,9 +51,6 @@ VCNL4040_WHITE_DATA = 0x0A
 VCNL4040_INT_FLAG = 0x0B #Upper
 VCNL4040_ID = 0x0C
 
-# define the class that encapsulates the device being created. All information associated with this
-# device is encapsulated by this class. The device class should be the only value exported 
-# from this module.
 
 class QwiicProximity(object):
 
@@ -166,9 +162,11 @@ class QwiicProximity(object):
 			print("Unable to load I2C driver for this platform.")
 			return
 
+	#----------------------------------------------
 	def isConnected(self):
 		return qwiic_i2c.isDeviceConnected(self.address)
 
+	#----------------------------------------------
 	# //Check comm with sensor and set it to default init settings
 	def begin(self):
 
@@ -197,6 +195,7 @@ class QwiicProximity(object):
 
 		return True
 
+	#----------------------------------------------
 	# //Set the duty cycle of the IR LED. The higher the duty
 	# //ratio, the faster the response time achieved with higher power
 	# //consumption. For example, PS_Duty = 1/320, peak IRED current = 100 mA,
@@ -214,6 +213,10 @@ class QwiicProximity(object):
   
 		self.bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_DUTY_MASK, dutyValue)
 
+	duty_cycle = property()
+	duty_cycle = duty_cycle.setter(setIRDutyCycle)
+
+	#----------------------------------------------	
 	# //Set the Prox interrupt persistance value
 	# //The PS persistence function (PS_PERS, 1, 2, 3, 4) helps to avoid
 	# //false trigger of the PS INT. It defines the amount of
@@ -221,6 +224,8 @@ class QwiicProximity(object):
 	def setProxInterruptPersistance(self, persValue):
 		self.bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_PERS_MASK, persValue)
 
+	
+	#----------------------------------------------	
 	# //Set the Ambient interrupt persistance value
 	# //The ALS persistence function (ALS_PERS, 1, 2, 4, 8) helps to avoid
 	# //false trigger of the ALS INT. It defines the amount of
