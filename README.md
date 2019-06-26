@@ -13,7 +13,7 @@ Python module to interface with the [Qwiic Proximity board](https://www.sparkfun
 This package is a port of the [SparkFun VCNL4040 Proximity Sensor Arduino Library](https://github.com/sparkfun/SparkFun_VCNL4040_Arduino_Library)
 
 ## Dependencies 
-This driver package depends on the qwii I2C driver: 
+This driver package depends on the qwiic I2C driver: 
 [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
 
 ### PyPi Installation
