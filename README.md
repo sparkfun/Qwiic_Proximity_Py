@@ -5,7 +5,9 @@
 
 Python module to interface with the [Qwiic Proximity board](https://www.sparkfun.com/products/15177).
 
-![SparkFun Proximity Breakout](https://cdn.sparkfun.com//assets/parts/1/3/5/9/2/15177-SparkFun_Proximity_Sensor_Breakout_-_20cm__VCNL4040__Qwiic_-01.jpg)
+<p align="center">
+   <img src="https://cdn.sparkfun.com//assets/parts/1/3/5/9/2/15177-SparkFun_Proximity_Sensor_Breakout_-_20cm__VCNL4040__Qwiic_-01.jpg"  width=400 alt="SparkFun Proximity Breakout">
+</p>
 
 This package is a port of the [SparkFun VCNL4040 Proximity Sensor Arduino Library](https://github.com/sparkfun/SparkFun_VCNL4040_Arduino_Library)
 
