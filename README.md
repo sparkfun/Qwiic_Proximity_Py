@@ -1,4 +1,8 @@
 # Qwiic_Proximity_Py
+<p align="center">
+   <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>
+</p>
+
 Python module to interface with the [Qwiic Proximity board](https://www.sparkfun.com/products/15177).
 
 ![SparkFun Proximity Breakout](https://cdn.sparkfun.com//assets/parts/1/3/5/9/2/15177-SparkFun_Proximity_Sensor_Breakout_-_20cm__VCNL4040__Qwiic_-01.jpg)
@@ -69,3 +73,6 @@ def runExample():
 runExample()
 
 ```
+<p align="center">
+   <img src="https://cdn.sparkfun.com/assets/custom_pages/2/7/2/qwiic-logo-registered.jpg"  width=200>
+</p>
