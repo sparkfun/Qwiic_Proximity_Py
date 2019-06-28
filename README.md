@@ -26,6 +26,8 @@ This package is a port of the [SparkFun VCNL4040 Proximity Sensor Arduino Librar
 
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
+New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
+
 Dependencies 
 -------------
 This driver package depends on the qwiic I2C driver: 
