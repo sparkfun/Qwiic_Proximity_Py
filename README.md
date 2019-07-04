@@ -10,6 +10,8 @@ Qwiic_Proximity_Py
 		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_proximity.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_Proximity_Py/issues" alt="Issues">
 		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_Proximity_Py.svg" /></a>
+	<a href="https://qwiic-proximity-py.readthedocs.io/en/latest/index.html" alt="Documentation">
+		<img src="https://readthedocs.org/projects/qwiic-proximity-py/badge/?version=latest&style=flat" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_Proximity_Py/blob/master/LICENSE" alt="License">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
 	<a href="https://twitter.com/intent/follow?screen_name=sparkfun">
