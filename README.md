@@ -6,7 +6,7 @@ Qwiic_Proximity_Py
    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png"  width=240>   
 </p>
 <p align="center">
-	<a href="https://test.pypi.org/project/sparkfun_qwiic_proximity/" alt="Package">
+	<a href="https://pypi.org/project/sparkfun_qwiic_proximity/" alt="Package">
 		<img src="https://img.shields.io/pypi/pyversions/sparkfun_qwiic_proximity.svg" /></a>
 	<a href="https://github.com/sparkfun/Qwiic_Proximity_Py/issues" alt="Issues">
 		<img src="https://img.shields.io/github/issues/sparkfun/Qwiic_Proximity_Py.svg" /></a>
@@ -28,22 +28,33 @@ This package can be used in conjunction with the overall [SparkFun qwiic Python 
 
 New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
 
+## Contents
+
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Documentation](#documentation)
+* [Example Use](#example-use)
+
 Dependencies 
 -------------
 This driver package depends on the qwiic I2C driver: 
 [Qwiic_I2C_Py](https://github.com/sparkfun/Qwiic_I2C_Py)
 
+Documentation
+-------------
+The Sparkfun qwiic Proximity module documentation is hosted at [ReadTheDocs](https://qwiic-proximity-py.readthedocs.io/en/latest/index.html)
+
 ### PyPi Installation
-On systems that support PyPi installation via pip, this library is installed using the following commands
+This repository is hosted on PyPi as the [sparkfun-qwiic-proximity](https://pypi.org/project/sparkfun-qwiic-proximity/) package. On systems that support PyPi installation via pip, this library is installed using the following commands
 
 For all users (note: the user must have sudo privileges):
 ```sh
-sudo pip install sparkfun_qwiic_proximity
+sudo pip install sparkfun-qwiic-proximity
 ```
 For the current user:
 
 ```sh
-pip install sparkfun_qwiic_proximity
+pip install sparkfun-qwiic-proximity
 ```
 
 ### Local Installation
