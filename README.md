@@ -44,7 +44,7 @@ This driver package depends on the qwiic I2C driver:
 
 Documentation
 -------------
-The Sparkfun qwiic Proximity module documentation is hosted at [ReadTheDocs](https://qwiic-proximity-py.readthedocs.io/en/latest/index.html)
+The SparkFun qwiic Proximity module documentation is hosted at [ReadTheDocs](https://qwiic-proximity-py.readthedocs.io/en/latest/index.html)
 
 ### PyPi Installation
 This repository is hosted on PyPi as the [sparkfun-qwiic-proximity](https://pypi.org/project/sparkfun-qwiic-proximity/) package. On systems that support PyPi installation via pip, this library is installed using the following commands
