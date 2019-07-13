@@ -48,7 +48,7 @@ def runExample():
 	print("\nSparkFun Proximity Sensor VCN4040 Example 1\n")
 	oProx = qwiic_proximity.QwiicProximity()
 
-	if oProx.isConnected() == False:
+	if oProx.connected == False:
 		print("The Qwiic Proximity device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
@@ -57,10 +57,10 @@ def runExample():
 
 	while True:
 
-		if oProx.isConnected():
-			oProx.powerOnProximity()
+		if oProx.connected:
+			oProx.power_on_proximity()
 
-			proxValue = oProx.getProximity()
+			proxValue = oProx.get_proximity()
 			print("Good Proximity Value: %d" % proxValue)
 		else:
 			print("Not Connected")

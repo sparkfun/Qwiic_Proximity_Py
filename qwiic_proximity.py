@@ -202,7 +202,7 @@ class QwiicProximity(object):
 			self._i2c = i2c_driver
 
 	#----------------------------------------------
-	def isConnected(self):
+	def is_connected(self):
 		""" 
 			Determine if a Proximity device is conntected to the system..
 
@@ -212,6 +212,7 @@ class QwiicProximity(object):
 		"""
 		return qwiic_i2c.isDeviceConnected(self.address)
 
+	connected = property(is_connected)
 	#----------------------------------------------
 	# //Check comm with sensor and set it to default init settings
 	def begin(self):
@@ -223,27 +224,27 @@ class QwiicProximity(object):
 
 		"""
   		# //Check connection
-		if self.isConnected() == False: 
+		if self.is_connected() == False: 
   			return False  # I2C comm failure
 
-		if self.getID() != 0x0186:
+		if self.get_id() != 0x0186:
 			return False  # Check default ID value
 
 		# //Configure the various parts of the sensor
-		self.setLEDCurrent(200) # Max IR LED current
+		self.set_led_current(200) # Max IR LED current
 
-		self.setIRDutyCycle(40) # Set to highest duty cycle
+		self.set_ir_dutycycle(40) # Set to highest duty cycle
 
-		self.setProxIntegrationTime(8) # Set to max integration
+		self.set_prox_integration_time(8) # Set to max integration
 
-		self.setProxResolution(16) # Set to 16-bit output
+		self.set_prox_resolution(16) # Set to 16-bit output
   
-		self.enableSmartPersistance() #Turn on smart presistance
+		self.enable_smart_persistance() #Turn on smart presistance
 
-		self.powerOnProximity() #Turn on prox sensing
+		self.power_on_proximity() #Turn on prox sensing
 
-		self.setAmbientIntegrationTime(self.VCNL4040_ALS_IT_80MS) #Keep it short
-		self.powerOnAmbient() #Turn on ambient sensing
+		self.set_ambient_integration_time(self.VCNL4040_ALS_IT_80MS) #Keep it short
+		self.power_on_ambient() #Turn on ambient sensing
 
 		return True
 
@@ -252,7 +253,7 @@ class QwiicProximity(object):
 	# //ratio, the faster the response time achieved with higher power
 	# //consumption. For example, PS_Duty = 1/320, peak IRED current = 100 mA,
 	# //averaged current consumption is 100 mA/320 = 0.3125 mA.
-	def setIRDutyCycle(self, dutyValue):
+	def set_ir_dutycycle(self, dutyValue):
 		""" 
 			Set the duty cycle of the IR LED. The higher the duty
 			ratio, the faster the response time achieved with higher power
@@ -275,14 +276,14 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_DUTY_MASK, dutyValue)
 
 	duty_cycle = property()
-	duty_cycle = duty_cycle.setter(setIRDutyCycle)
+	duty_cycle = duty_cycle.setter(set_ir_dutycycle)
 
 	#----------------------------------------------	
 	# //Set the Prox interrupt persistance value
 	# //The PS persistence function (PS_PERS, 1, 2, 3, 4) helps to avoid
 	# //false trigger of the PS INT. It defines the amount of
 	# //consecutive hits needed in order for a PS interrupt event to be triggered.
-	def setProxInterruptPersistance(self, persValue):
+	def set_prox_interrupt_persistance(self, persValue):
 		""" 
 			Set the Prox interrupt persistance value
 			The PS persistence function (PS_PERS, 1, 2, 3, 4) helps to avoid
@@ -295,13 +296,14 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_PERS_MASK, persValue)
 
-
+	prox_interrupt_persistance = property()
+	prox_interrupt_persistance = prox_interrupt_persistance.setter(set_prox_interrupt_persistance)
 	#----------------------------------------------	
 	# //Set the Ambient interrupt persistance value
 	# //The ALS persistence function (ALS_PERS, 1, 2, 4, 8) helps to avoid
 	# //false trigger of the ALS INT. It defines the amount of
 	# //consecutive hits needed in order for a ALS interrupt event to be triggered.
-	def setAmbientInterruptPersistance(self, persValue):
+	def set_ambient_interrupt_persistance(self, persValue):
 		""" 
 			Set the Ambient interrupt persistance value
 			The ALS persistence function (ALS_PERS, 1, 2, 4, 8) helps to avoid
@@ -314,7 +316,9 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_PERS_MASK, persValue)
 
-	def enableAmbientInterrupts(self):
+	ambient_interrupt_persistance = property()
+	ambient_interrupt_persistance = ambient_interrupt_persistance.setter(set_ambient_interrupt_persistance)
+	def enable_ambient_interrupts(self):
 		""" 
 			Enable Ambient Interrupts
 
@@ -322,7 +326,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_INT_EN_MASK, self.VCNL4040_ALS_INT_ENABLE)
 
-	def disableAmbientInterrupts(self):
+	def disable_ambient_interrupts(self):
 		""" 
 			Disable Ambient Interrupts
 
@@ -331,7 +335,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_INT_EN_MASK, self.VCNL4040_ALS_INT_DISABLE)
 
 	# Power on or off the ambient light sensing portion of the sensor
-	def powerOnAmbient(self):
+	def power_on_ambient(self):
 		""" 
 			Power on the ambient light sensing portion of the sensor
 
@@ -339,7 +343,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_SD_MASK, self.VCNL4040_ALS_SD_POWER_ON)
 
-	def powerOffAmbient(self):
+	def power_off_ambient(self):
 		""" 
 			Power off the ambient light sensing portion of the sensor
 
@@ -348,7 +352,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_SD_MASK, self.VCNL4040_ALS_SD_POWER_OFF)
 
 	# Sets the integration time for the ambient light sensor
-	def setAmbientIntegrationTime(self, timeValue):
+	def set_ambient_integration_time(self, timeValue):
 		""" 
 			Sets the integration time for the ambient light sensor
 			
@@ -367,8 +371,11 @@ class QwiicProximity(object):
 
 		self._bitMask(VCNL4040_ALS_CONF, LOWER, self.VCNL4040_ALS_IT_MASK, timeValue)
 
+	ambient_integration_time = property()
+	ambient_integration_time = ambient_integration_time.setter(set_ambient_integration_time)
+
 	# Sets the integration time for the proximity sensor
-	def setProxIntegrationTime(self, timeValue):
+	def set_prox_integration_time(self, timeValue):
 		""" 
 			Sets the integration time for the proximity sensor
 			
@@ -388,8 +395,11 @@ class QwiicProximity(object):
 
 		self._bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_IT_MASK, timeValue)
 
+	prox_integration_time = property()
+	prox_integration_time = prox_integration_time.setter(set_prox_integration_time)
+
 	# Power on the prox sensing portion of the device
-	def powerOnProximity(self):
+	def power_on_proximity(self):
 		""" 
 			Power on the prox sensing portion of the device
 
@@ -398,7 +408,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_SD_MASK, self.VCNL4040_PS_SD_POWER_ON)
 
 	# Power off the prox sensing portion of the device
-	def powerOffProximity(self):
+	def power_off_proximity(self):
 		""" 
 			Power off the prox sensing portion of the device
 
@@ -407,7 +417,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_PS_CONF1, LOWER, self.VCNL4040_PS_SD_MASK, self.VCNL4040_PS_SD_POWER_OFF)
 
 	# Sets the proximity resolution
-	def setProxResolution(self, resolutionValue):
+	def set_prox_resolution(self, resolutionValue):
 		""" 
 			Sets the proximity resolution
 			
@@ -421,8 +431,11 @@ class QwiicProximity(object):
 	
 		self._bitMask(VCNL4040_PS_CONF2, UPPER, self.VCNL4040_PS_HD_MASK, resolutionValue)
 
+	prox_resolution = property()
+	prox_resolution = prox_resolution.setter(set_prox_resolution)
+
 	# Sets the proximity interrupt type
-	def setProxInterruptType(self, interruptValue):
+	def set_prox_interrupt_type(self, interruptValue):
 		""" 
 			Sets the proximity interrupt type
 			
@@ -431,11 +444,14 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_CONF2, UPPER, self.VCNL4040_PS_INT_MASK, interruptValue);
 
+	prox_interrupt_type = property()
+	prox_interrupt_type = prox_interrupt_type.setter(set_prox_interrupt_type)
+
 	# Enable smart persistance
 	# To accelerate the PS response time, smart
 	# persistence prevents the misjudgment of proximity sensing
 	# but also keeps a fast response time.
-	def enableSmartPersistance(self):
+	def enable_smart_persistance(self):
 		""" 
 			Enable smart persistance
 			To accelerate the PS response time, smart
@@ -446,7 +462,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_CONF3, LOWER,self.VCNL4040_PS_SMART_PERS_MASK, self.VCNL4040_PS_SMART_PERS_ENABLE)
 
-	def disableSmartPersistance(self):
+	def disable_smart_persistance(self):
 		""" 
 			Disable smart persistance
 			
@@ -460,7 +476,7 @@ class QwiicProximity(object):
 	# enable the active force mode. This
 	# triggers a single PS measurement, which can be read from the PS result registers.
 	# VCNL4040 stays in standby mode constantly.
-	def enableActiveForceMode(self):
+	def enable_active_force_mode(self):
 		""" 
 			Enable active force mode
 			An extreme power saving way to use PS is to apply PS active force mode.
@@ -473,7 +489,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_CONF3, LOWER, self.VCNL4040_PS_AF_MASK, self.VCNL4040_PS_AF_ENABLE)
 
-	def disableActiveForceMode(self):
+	def disable_active_force_mode(self):
 		""" 
 			Disable active force mode
 			
@@ -482,7 +498,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_PS_CONF3, LOWER, self.VCNL4040_PS_AF_MASK, self.VCNL4040_PS_AF_DISABLE)
 
 	# Set trigger bit so sensor takes a force mode measurement and returns to standby
-	def takeSingleProxMeasurement(self):
+	def take_single_prox_measurement(self):
 		""" 
 			Set trigger bit so sensor takes a force mode measurement and returns to standby
 			
@@ -491,7 +507,7 @@ class QwiicProximity(object):
 		self._bitMask(VCNL4040_PS_CONF3, LOWER, self.VCNL4040_PS_TRIG_MASK, self.VCNL4040_PS_TRIG_TRIGGER)
 
 	# Enable the white measurement channel
-	def enableWhiteChannel(self):
+	def enable_white_channel(self):
 		""" 
 			Enable the white measurement channel
 			
@@ -499,7 +515,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_MS, UPPER, self.VCNL4040_WHITE_EN_MASK, self.VCNL4040_WHITE_ENABLE)
 
-	def disableWhiteChannel(self):
+	def disable_white_channel(self):
 		""" 
 			Disable the white measurement channel
 			
@@ -513,7 +529,7 @@ class QwiicProximity(object):
 	# threshold) and is reset to high when the object moves away (value is
 	# below low threshold). Register: PS_THDH / PS_THDL
 	# define where these threshold levels are set.
-	def enableProxLogicMode(self):
+	def enable_prox_logic_mode(self):
 		""" 
 			Enable the proximity detection logic output mode
 			When this mode is selected, the INT pin is pulled low when an object is
@@ -526,7 +542,7 @@ class QwiicProximity(object):
 		"""
 		self._bitMask(VCNL4040_PS_MS, UPPER, self.VCNL4040_PS_MS_MASK, self.VCNL4040_PS_MS_ENABLE)
 
-	def disableProxLogicMode(self):
+	def disable_prox_logic_mode(self):
 		""" 
 			Disable the proximity detection logic output mode
 			
@@ -536,7 +552,7 @@ class QwiicProximity(object):
 
 
 	# Set the IR LED sink current to one of 8 settings
-	def setLEDCurrent(self, currentValue):
+	def set_led_current(self, currentValue):
 		""" 
 			Set the IR LED sink current to one of 8 settings
 			
@@ -563,10 +579,12 @@ class QwiicProximity(object):
 
 		self._bitMask(VCNL4040_PS_MS, UPPER, self.VCNL4040_LED_I_MASK, currentValue)
 
+	led_current = property()
+	led_current = led_current.setter(set_led_current)
 
 	# Set the proximity sensing cancelation value - helps reduce cross talk
 	# with ambient light
-	def setProxCancellation(self, cancelValue):
+	def set_prox_cancellation(self, cancelValue):
 		""" 
 			Set the proximity sensing cancelation value - helps reduce cross talk with ambient light
 			
@@ -575,8 +593,11 @@ class QwiicProximity(object):
 		"""
 		self._i2c.writeWord(self.address, VCNL4040_PS_CANC, cancelValue)
 
+	prox_cancellation = property()
+	prox_cancellation = prox_cancellation.setter(set_prox_cancellation)
+
 	# Value that ALS must go above to trigger an interrupt
-	def setALSHighThreshold(self, threshold):
+	def set_als_high_threshold(self, threshold):
 		""" 
 			Value that ALS must go above to trigger an interrupt
 			
@@ -585,8 +606,11 @@ class QwiicProximity(object):
 		"""
 		self._i2c.writeWord(self.address, VCNL4040_ALS_THDH, threshold)
 
+	als_high_threshold = property()
+	als_high_threshold = als_high_threshold.setter(set_als_high_threshold)
+
 	# Value that ALS must go below to trigger an interrupt
-	def setALSLowThreshold(self, threshold):
+	def set_als_low_threshold(self, threshold):
 		""" 
 			Value that ALS must go below to trigger an interrupt
 			
@@ -595,8 +619,11 @@ class QwiicProximity(object):
 		"""
 		self._i2c.writeWord(self.address, VCNL4040_ALS_THDL, threshold)
 
+	als_low_threshold = property()
+	als_low_threshold = als_low_threshold.setter(set_als_low_threshold)
+
 	# Value that Proximity Sensing must go above to trigger an interrupt
-	def setProxHighThreshold(self, threshold):
+	def set_prox_high_threshold(self, threshold):
 		""" 
 			Value that Proximity Sensing must go above to trigger an interrupt
 			
@@ -605,8 +632,11 @@ class QwiicProximity(object):
 		"""
 		self._i2c.writeWord(self.address, VCNL4040_PS_THDH, threshold)
 
+	prox_high_threshold = property()
+	prox_high_threshold = prox_high_threshold.setter(set_prox_high_threshold)
+
 	# Value that Proximity Sensing must go below to trigger an interrupt
-	def setProxLowThreshold(self, threshold):
+	def set_prox_low_threshold(self, threshold):
 		""" 
 			Value that Proximity Sensing must go below to trigger an interrupt
 			
@@ -615,14 +645,15 @@ class QwiicProximity(object):
 		"""
 		self._i2c.writeWord(self.address, VCNL4040_PS_THDL, threshold);
 
-
+	prox_low_threshold = property()
+	prox_low_threshold = prox_low_threshold.setter(set_prox_low_threshold)
 	#--------------------------------------------------------------------------
 	# Read Value methods
 	#--------------------------------------------------------------------------
-	# getProximity()
+	# get_proximity()
 	#
 	# Read the Proximity value
-	def getProximity(self):
+	def get_proximity(self):
 		""" 
 			Get the current proximity value
 			
@@ -633,10 +664,10 @@ class QwiicProximity(object):
 
 
 	# prox as a readonly prop
-	proximity  = property(getProximity)
+	proximity  = property(get_proximity)
 
 	# Read the Ambient light value
-	def getAmbient(self):
+	def get_ambient(self):
 		""" 
 			Read the Ambient light value
 			
@@ -646,11 +677,11 @@ class QwiicProximity(object):
 		return self._i2c.readWord(self.address, VCNL4040_ALS_DATA)
 
 	# Ambient as a readonly prop
-	ambient  = property(getAmbient)
+	ambient  = property(get_ambient)
 
 
 	# Read the Whilte light value
-	def getWhite(self):
+	def get_white(self):
 		""" 
 			Read the White light value
 			
@@ -660,11 +691,11 @@ class QwiicProximity(object):
 		return self._i2c.readWord(self.address, VCNL4040_WHITE_DATA)
 
 	# White light as a readonly prop
-	white_light  = property(getWhite)
+	white_light  = property(get_white)
 
 
 	# Read the sensors ID
-	def getID(self):
+	def get_id(self):
 		""" 
 			Read the sensor ID
 			
@@ -674,11 +705,11 @@ class QwiicProximity(object):
 		return self._i2c.readWord(self.address, VCNL4040_ID)
 
 	# Sensor ID as a readonly prop
-	sensor_id  = property(getID)
+	sensor_id  = property(get_id)
 
 
 	# Returns true if the prox value rises above the upper threshold
-	def isClose(self):
+	def is_close(self):
 		""" 
 			Returns true if the prox value rises above the upper threshold
 			
@@ -689,11 +720,11 @@ class QwiicProximity(object):
 		return (interruptFlags & self.VCNL4040_INT_FLAG_CLOSE) != 0
 
 	# is_close as a readonly prop
-	is_close  = property(isClose)
+	is_close  = property(is_close)
 
 
 	# Returns true if the prox value drops below the lower threshold
-	def isAway(self):
+	def is_away(self):
 		""" 
 			Returns true if the prox value drops below the lower threshold
 			
@@ -704,10 +735,10 @@ class QwiicProximity(object):
 		return (interruptFlags & self.VCNL4040_INT_FLAG_AWAY) != 0
 
 	# is_away as a readonly prop
-	is_away  = property(isAway)
+	is_away  = property(is_away)
 
 	# Returns true if the prox value rises above the upper threshold
-	def isLight(self):
+	def is_light(self):
 		""" 
 			Returns true if the prox value rises above the upper threshold
 			
@@ -718,10 +749,10 @@ class QwiicProximity(object):
 		return (interruptFlags & self.VCNL4040_INT_FLAG_ALS_HIGH) != 0
 
 	# is_light as a readonly prop
-	is_light  = property(isLight)
+	is_light  = property(is_light)
 
 	#Returns true if the ALS value drops below the lower threshold
-	def isDark(self):
+	def is_dark(self):
 		""" 
 			Returns true if the prox value drops below the lower threshold
 			
@@ -732,7 +763,7 @@ class QwiicProximity(object):
 		return (interruptFlags & self.VCNL4040_INT_FLAG_ALS_LOW) != 0
 
 	# is_dark as a readonly prop
-	is_dark  = property(isDark)
+	is_dark  = property(is_dark)
 
 	#--------------------------------------------------------------------------
 	# internal I2C Utility Routines 

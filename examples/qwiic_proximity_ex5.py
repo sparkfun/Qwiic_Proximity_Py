@@ -49,7 +49,7 @@ def runExample():
 	print("\nSparkFun Proximity Sensor VCN4040 Example 5\n")
 	oProx = qwiic_proximity.QwiicProximity()
 
-	if oProx.isConnected() == False:
+	if oProx.connected == False:
 		print("The Qwiic Proximity device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
@@ -57,35 +57,35 @@ def runExample():
 	# begin Setup
 	oProx.begin()
 
-	oProx.powerOnAmbient()  	# Power Up the ambient sensor
+	oProx.power_on_ambient()  	# Power Up the ambient sensor
 
 	# Set the integration time for the proximity sensor
 	# 1 to 8 is valid
-	oProx.setProxIntegrationTime(8) 
+	oProx.prox_integration_time = 8 
 
 	# Set the integration time for the ambient light sensor in milliseconds
 	# 80 to 640ms is valid
-	oProx.setAmbientIntegrationTime(80)
+	oProx.ambient_integration_time = 80
 
 	# If sensor sees more than this, interrupt pin will go low
-	oProx.setProxHighThreshold(2000)
+	oProx.prox_high_threshold = 2000
 
 	# The int pin will stay low until the value goes below the low threshold value
-	oProx.setProxLowThreshold(150)
+	oProx.prox_low_threshold = 150
 
 	# Enable both 'away' and 'close' interrupts
-	oProx.setProxInterruptType(oProx.VCNL4040_PS_INT_BOTH)
+	oProx.prox_interrupt_type = oProx.VCNL4040_PS_INT_BOTH
 
 	# This causes the int pin to go low every time a reading is outside the thresholds
 	# Get a multimeter and probe the INT pin to see this feature in action
-	oProx.enableProxLogicMode()
+	oProx.enable_prox_logic_mode()
 
 	while True:
 
-		proxValue = oProx.getProximity()
+		proxValue = oProx.proximity
 		print("Proximity Value: \t[%5d]" % proxValue)
 		
-		ambientValue = oProx.getAmbient()
+		ambientValue = oProx.ambient
 		print("Ambient Value: \t\t[%5d]\n" % ambientValue)
 
 
